@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('code clone'){
+            steps{
+               git branch: 'main', url: 'https://github.com/shwetabhore18/jenkins_practice.git'
+            }
+        }
+        stage('build'){
+            steps{
+                sh 'docker build -t python-cicd .'
+            }
+        }
+        stage('deploy'){
+            steps{
+                sh 'docker run -d -p 5000:5000 python-cicd'
+            }
+        }
+    }
+}
